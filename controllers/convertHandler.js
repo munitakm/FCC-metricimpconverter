@@ -12,16 +12,24 @@ function ConvertHandler() {
   
   this.getNum = (input) => {
     input = input.match(/[^a-z]/gi) || 1;
-    return input !== 1? fraction(input) : 1;
+    return (/ /).test(input)? null : input !== 1? fraction(input) : 1;
   };
   
+  const isNumber = (m) => {
+    if(!m.match(/\./) || m.match(/\./g).length == 1) { 
+        if(parseFloat(m) && m > 0)
+        return parseFloat(m);
+    } else {
+    return false;
+    }
+};
   const fraction = (input) => {
     if((/\//).test(input)) {
       input = input.join('').split('/');
       return input.length == 2 && input[1] && input[0][input[0].length-1] !== "."?
       input.reduce((a,b) => a / b) : null;
     } else { 
-      return input.join('')
+      return isNumber(input.join(''));
     }
   }
   this.getUnit = function(input) {
@@ -49,14 +57,17 @@ function ConvertHandler() {
   
 
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    returnNum = returnNum.toFixed(5)
+    returnNum = returnNum = parseFloat(returnNum.toFixed(5))
+    let initUnitString = this.spellOutUnit(initUnit);
+    let returnUnitString = this.spellOutUnit(returnUnit);
     return { 
       initNum,
       initUnit,
       returnNum,
       returnUnit,
-      string: `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`
-    }
+      string: 
+`${initNum} ${initUnitString} converts to ${returnNum} ${returnUnitString}`
+    } 
   };
 };
 

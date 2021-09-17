@@ -36,6 +36,9 @@ suite('#1 Unit Tests', function(){
       assert.equal(c.getNum(num), 1);
       done();
     })
+  });
+
+  suite('Unit Tests', function() { 
     test('#7 Should read correctly each valid input unit', (done) => { 
     const unit = ['km','KM','mi','MI','kg','KG','LBS','lbs','GAL','gal'];
     const vol = ['l', 'L'];
@@ -70,7 +73,10 @@ suite('#1 Unit Tests', function(){
         assert.equal(c.spellOutUnit(c.getReturnUnit(units[i])), spelled[i])
       }
       done();
-    })
+    }) 
+  });
+
+  suite('Conversion Tests', function() {
     test('#11 Should convert gal to L', (done) => { 
       assert.approximately(c.convert(1, "gal"), 3.78541, 0.1);
       done();
@@ -95,7 +101,5 @@ suite('#1 Unit Tests', function(){
       assert.approximately(c.convert(1, "kg"), 2.20462, 0.1);
       done();
     })
-
-
   })
 });
